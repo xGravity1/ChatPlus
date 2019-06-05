@@ -1,7 +1,9 @@
+#                               Agreements
 
-
-#                               Information
-#                 Please read this before using this Skript!
+# ChatPlus: Made by xGravity
+# You are not allowed to re-sell this Skript.
+# You are not allowed to claim this as yours.
+# You are allowed to edit this.
 
 
 
@@ -14,14 +16,6 @@
 # chatplus.bypass - Access to talk when the chat is muted.
 
 
-#                               Agreements
-
-# ChatPlus: Made by xGravity
-# You are not allowed to re-sell this Skript.
-# You are not allowed to claim this as yours.
-# You are allowed to edit this.
-
-
 
 #                                Options
 #                 Here is where you can edit the messages.
@@ -30,62 +24,58 @@
 options:
 
     # Prefix before all messages
-    prefix: &7[&cCP&7] &r
+    prefix: &7[&eChatPlus&7] &r
 
-    # Chat format
-    chatformat: %colored player's prefix% &a%player%&: &fMessage
-    
     # Broadcast message
-    bcmsg: &7A new server announcement was made by &a%player%
-    bcmsg_1: &a{%arg-1}
-    
+    bcmsg: &7A new server announcement was made by
+
     # No permission message
     noperms: &cNo permission.
-    
+
     # Message sent when the chat has been cleared
-    ccmsg: &7The chat has been cleared by &a%player%&7.
-    
+    ccmsg: &7The chat has been cleared by &c%player%&7.
+
     # The broadcast that is sent when the chat gets muted
-    muteonmsg: &7The chat was muted by &a%player%&7.
-    
+    muteonmsg: &7The chat was muted by &c%player%&7.
+
     # The broadcast that is sent when the chat gets unmuted
-    muteoffmsg: &7The chat was unmuted by &a%player%&7.
-    
+    muteoffmsg: &7The chat was unmuted by &c%player%&7.
+
     # Message when a player attemps to speak when the chat is muted
     chatmuted: &cYou cannot talk when the chat is muted!
-    
+
     # Not enough arguments on a broadcast message
     bcneedsargs: &cPlease provide a message. Example: &a/broadcast Hello everyone!
-    
+
     # Not enough arguments on a staffchat message
     scneedsargs: &cPlease provide a message. Example: &a/sc Hello everyone!
 
     # Reload complete message
     reload: &aChatPlus has been reloaded!
-    
+
     # Staffchat format
-    scprefix: &a&lStaff &7»
-    
+    scprefix: &c&lStaff &7»
+
     # Join message:
-    joinmsg: &a%player% &7has joined the server.
-    
+    joinmsg: &c%player% &7has joined the server.
+
     # First join message
-    firstjoinmsg: &a%player% &7has joined the server for the &cfirst &7time!
-    
+    firstjoinmsg: &c%player% &7has joined the server for the &cfirst &7time!
+
     # Quit message
-    quitmsg: &a%player% &7has left the server.
-    
-    
+    quitmsg: &c%player% &7has left the server.
+
+
     # Help message
-    help_line_1: &a
-    help_line_2: &a&lChatPlus Guide &7- Version &a1.0
-    help_line_3:  &c/chat clear &7» Clears the chat.
-    help_line_4:  &c/chat mute &7» Mutes the chat.
-    help_line_5:  &c/chat unmute &7» Unmutes the chat.
-    help_line_6:  &c/broadcast <text> &7» Broadcasts a message to all players.
-    help_line_7:  &c/chat reload &7» Reloads the Skript.
-    help_line_8:  &c/staffchat <message> &7» Sends a message in the staffchat.
-    help_line_9: &a
+    help_line_1: &r
+    help_line_2: &e&lChatPlus Guide &7- &cVersion 1.0
+    help_line_3: &c/chat clear &7- Clears the chat.
+    help_line_4: &c/chat mute &7- Mutes the chat.
+    help_line_5: &c/chat unmute &7- Unmutes the chat.
+    help_line_6: &c/broadcast <text> &7- Broadcasts a message to the entire server.
+    help_line_7: &c/chat reload &7- Reloads the Skript.
+    help_line_8: &c/staffchat <message> &7- Sends a message in the staffchat.
+    help_line_9: &r
 
 #                       Main Skript
 #           Only edit if you know what you're doing!
@@ -106,7 +96,6 @@ command /chat [<text>]:
             set {mutechat.on} to false
             broadcast "{@muteoffmsg}"
         if arg 1 is not set:
-            send " "
             send "{@help_line_1}"
             send "{@help_line_2}"
             send "{@help_line_3}"
@@ -116,9 +105,7 @@ command /chat [<text>]:
             send "{@help_line_7}"
             send "{@help_line_8}"
             send "{@help_line_9}"
-            send " "
         if arg 1 is "help":
-            send " "
             send "{@help_line_1}"
             send "{@help_line_2}"
             send "{@help_line_3}"
@@ -128,7 +115,6 @@ command /chat [<text>]:
             send "{@help_line_7}"
             send "{@help_line_8}"
             send "{@help_line_9}"
-            send " "
         if arg 1 is "reload":
             if player does not have permission "chatplus.admin":
                 cancel event
@@ -136,7 +122,7 @@ command /chat [<text>]:
             else:
                 make console execute command "/sk reload ChatPlus"
                 send "{@prefix}{@reload}"
-                
+    permission message {@noperms}
 command /broadcast [<text>]:
     permission: chatplus.broadcast
     permission message: {@noperms}
@@ -146,10 +132,10 @@ command /broadcast [<text>]:
             send "{@prefix}{@bcneedsargs}"
         else:
             broadcast " "
-            broadcast "{@bcmsg}"
-            broadcast "{@bcmsg_1}"
+            broadcast "{@bcmsg} &c%player%"
+            broadcast "&c%arg-1%"
             broadcast " "
-            
+
 command /staffchat [<text>]:
     permission: chatplus.staffchat
     permission message: {@noperms}
@@ -162,21 +148,19 @@ command /staffchat [<text>]:
                         send "{@scprefix} &c%player%&7: &e%arg-1%" to loop-player
             if arg-1 is not set:
                 send "{@scneedsargs}"
-                
+
 on chat:
-    cancel event
     if {mutechat.on} is true:
         if player has permission "chatplus.bypass":
-            broadcast "{@format}"
         else:
             send "{@chatmuted}"
             cancel event
-            
+
 on join:
     set join message to "{@joinmsg}"
-    
+
 on first join:
     set join message to "{@firstjoinmsg}"
-    
+
 on quit:
     set quit message to "{@quitmsg}"
