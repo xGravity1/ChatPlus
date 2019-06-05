@@ -20,7 +20,7 @@ options:
     prefix: &7[&eChatPlus&7] &r
     
     # Broadcast message
-    bcmsg: &7A new server announcement was made by
+    bcmsg: &7A new server announcement was made by &c%player%
     
     # No permission message
     noperms: &cNo permission.
@@ -125,7 +125,7 @@ command /broadcast [<text>]:
             send "{@prefix}{@bcneedsargs}"
         else:
             broadcast " "
-            broadcast "{@bcmsg} &c%player%"
+            broadcast "{@bcmsg}"
             broadcast "&c%arg-1%"
             broadcast " "
             
