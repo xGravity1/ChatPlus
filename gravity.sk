@@ -10,7 +10,7 @@
 
 
 #                            ChatPlus Messages
-#             Here is where you can edit the messages for ChatPlus.
+#       Here is where you can edit the messages for the Chat from ChatPlus.
 
 
 options:
@@ -77,6 +77,10 @@ options:
 #                       Core Messages
 #           Edit the scoreboard, tablist and other messages!
 
+options:
+    
+    # Chat Format
+    format: &b%player%&f: %message%
 
 
 #                       Main Skript
@@ -156,12 +160,12 @@ on chat:
     cancel event
     if {mutechat.on} is true:
         if player has permission "gravity.bypass":
-            broadcast "&b%player%&f: &r%message"
+            broadcast "{@format}"
         else:
             send "{@chatmuted}"
             cancel event
     else:    
-        broadcast "&b%player%&f: &r%message%"
+        broadcast "{@format}"
         cancel event
 on join:
     set join message to "{@joinmsg}"
