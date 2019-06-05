@@ -146,6 +146,13 @@ command /staffchat [<text>]:
                         send "{@scprefix} &c%player%&7: &e%arg-1%" to loop-player
             if arg-1 is not set:
                 send "{@scneedsargs}"
+                
+on chat:
+    if {mutechat.on} is true:
+        if player has permission "chatplus.use":
+        else:
+            send "{@chatmuted}"
+            cancel event
             
 on join:
     set join message to "{@joinmsg}"
