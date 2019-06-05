@@ -4,10 +4,23 @@
 #                 Please read this before using this Skript!
 
 
+
+#                               Permissions
+
+# chatplus.use - Access to /chat clear, /chat mute, /chat unmute, /chat help
+# chatplus.admin - Access to /chat reload
+# chatplus.broadcast - Access to /broadcast or /bc
+# chatplus.staffchat - Access to /sc or /staffchat
+# chatplus.bypass - Access to talk when the chat is muted.
+
+
+#                               Agreements
+
 # ChatPlus: Made by xGravity
 # You are not allowed to re-sell this Skript.
 # You are not allowed to claim this as yours.
 # You are allowed to edit this.
+
 
 
 #                                Options
@@ -18,6 +31,9 @@ options:
 
     # Prefix before all messages
     prefix: &7[&cCP&7] &r
+
+    # Chat format
+    chatformat: %colored player's prefix% &a%player%&: &fMessage
     
     # Broadcast message
     bcmsg: &7A new server announcement was made by &a%player%
@@ -120,7 +136,7 @@ command /chat [<text>]:
             else:
                 make console execute command "/sk reload ChatPlus"
                 send "{@prefix}{@reload}"
-    permission message {@noperms}
+                
 command /broadcast [<text>]:
     permission: chatplus.broadcast
     permission message: {@noperms}
@@ -148,8 +164,10 @@ command /staffchat [<text>]:
                 send "{@scneedsargs}"
                 
 on chat:
+    cancel event
     if {mutechat.on} is true:
-        if player has permission "chatplus.use":
+        if player has permission "chatplus.bypass":
+            broadcast "{@format}"
         else:
             send "{@chatmuted}"
             cancel event
