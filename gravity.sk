@@ -3,6 +3,7 @@
 
 
 # ChatPlus: Made by xGravity
+# Gravity: Made by Mediblade
 # You are not allowed to re-sell this Skript.
 # You are not allowed to claim this as yours.
 # You are allowed to edit this.
@@ -83,7 +84,8 @@ options:
 
 
 command /gravity [<text>]:
-    permission: chatplus.use
+    aliases: chat, chatplus, g, gp
+    permission: gravity.use
     permission message: {@noperms}
     trigger:
         if arg 1 is "clear":
@@ -149,7 +151,9 @@ command /staffchat [<text>]:
                         send "{@scprefix} &3%player%&7: &e%arg-1%" to loop-player
             if arg-1 is not set:
                 send "{@scneedsargs}"
+
 on chat:
+    cancel event
     if {mutechat.on} is true:
         if player has permission "gravity.bypass":
             broadcast "&b%player%&f: &r%message"
@@ -157,8 +161,9 @@ on chat:
         else:
             send "{@chatmuted}"
             cancel event
-
-
+    else:    
+        broadcast "&b%player%&f: &r%message%"
+        cancel event
 on join:
     set join message to "{@joinmsg}"
     
