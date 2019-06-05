@@ -17,15 +17,10 @@ options:
     # Prefix before all messages
     prefix: &7[&bGravity&7] &r
     
+    
     # Broadcast message
     bcmsg: &7A new server announcement was made by
     
-    # Scoreboard
-    
-    sbname: &b&lGravity
-    sbline1: &3&m---------------
-    sbline2: &bRank
-    sbline3: &f
     
     # No permission message
     noperms: &4No permission.
@@ -150,7 +145,7 @@ command /staffchat [<text>]:
         if player has permission "gravity.staffchat":
             if arg-1 is set:
                 loop all players:
-                    if loop-players have permission "chatplus.staffchat":
+                    if loop-players have permission "gravity.staffchat":
                         send "{@scprefix} &3%player%&7: &e%arg-1%" to loop-player
             if arg-1 is not set:
                 send "{@scneedsargs}"
@@ -161,7 +156,16 @@ on chat:
         else:
             send "{@chatmuted}"
             cancel event
-            
+on chat: 
+    cancel event
+    if {mutechat.on} is true:
+        if player has permission "gravity.use":
+             broadcast "&b%player%&f: &r%message%"    
+        else:
+            send {@chatmuted}
+            cancel event
+    else:    
+        broadcast "&b%player%&f: &r%message%"
 on join:
     set join message to "{@joinmsg}"
     
