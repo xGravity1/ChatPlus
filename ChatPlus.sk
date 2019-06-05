@@ -17,22 +17,23 @@
 options:
 
     # Prefix before all messages
-    prefix: &7[&eChatPlus&7] &r
+    prefix: &7[&aCP&7] &r
     
     # Broadcast message
-    bcmsg: &7A new server announcement was made by &c%player%
+    bcmsg: &7A new server announcement was made by &a%player%
+    bcmsg_1: &a{%arg-1}
     
     # No permission message
     noperms: &cNo permission.
     
     # Message sent when the chat has been cleared
-    ccmsg: &7The chat has been cleared by &c%player%&7.
+    ccmsg: &7The chat has been cleared by &a%player%&7.
     
     # The broadcast that is sent when the chat gets muted
-    muteonmsg: &7The chat was muted by &c%player%&7.
+    muteonmsg: &7The chat was muted by &a%player%&7.
     
     # The broadcast that is sent when the chat gets unmuted
-    muteoffmsg: &7The chat was unmuted by &c%player%&7.
+    muteoffmsg: &7The chat was unmuted by &a%player%&7.
     
     # Message when a player attemps to speak when the chat is muted
     chatmuted: &cYou cannot talk when the chat is muted!
@@ -47,21 +48,21 @@ options:
     reload: &aChatPlus has been reloaded!
     
     # Staffchat format
-    scprefix: &c&lStaff &7»
+    scprefix: &a&lStaff &7»
     
     # Join message:
-    joinmsg: &c%player% &7has joined the server.
+    joinmsg: &a%player% &7has joined the server.
     
     # First join message
-    firstjoinmsg: &c%player% &7has joined the server for the &cfirst &7time!
+    firstjoinmsg: &a%player% &7has joined the server for the &cfirst &7time!
     
     # Quit message
-    quitmsg: &c%player% &7has left the server.
+    quitmsg: &a%player% &7has left the server.
     
     
     # Help message
     help_line_1: &r
-    help_line_2: &e&lChatPlus Guide &7- &cVersion 1.0
+    help_line_2: &a&lChatPlus Guide &7- &aVersion 1.0
     help_line_3: &c/chat clear &7- Clears the chat.
     help_line_4: &c/chat mute &7- Mutes the chat.
     help_line_5: &c/chat unmute &7- Unmutes the chat.
@@ -126,7 +127,7 @@ command /broadcast [<text>]:
         else:
             broadcast " "
             broadcast "{@bcmsg}"
-            broadcast "&c%arg-1%"
+            broadcast "{@bcmsg_1}"
             broadcast " "
             
 command /staffchat [<text>]:
@@ -157,4 +158,3 @@ on first join:
     
 on quit:
     set quit message to "{@quitmsg}"
-    
