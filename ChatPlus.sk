@@ -17,7 +17,7 @@
 options:
 
     # Prefix before all messages
-    prefix: &7[&aCP&7] &r
+    prefix: &7[&cCP&7] &r
     
     # Broadcast message
     bcmsg: &7A new server announcement was made by &a%player%
@@ -61,15 +61,15 @@ options:
     
     
     # Help message
-    help_line_1: &r
-    help_line_2: &a&lChatPlus Guide &7- &aVersion 1.0
-    help_line_3: &c/chat clear &7- Clears the chat.
-    help_line_4: &c/chat mute &7- Mutes the chat.
-    help_line_5: &c/chat unmute &7- Unmutes the chat.
-    help_line_6: &c/broadcast <text> &7- Broadcasts a message to the entire server.
-    help_line_7: &c/chat reload &7- Reloads the Skript.
-    help_line_8: &c/staffchat <message> &7- Sends a message in the staffchat.
-    help_line_9: &r
+    help_line_1: &a
+    help_line_2: &a&lChatPlus Guide &7- Version &a1.0
+    help_line_3:  &c/chat clear &7» Clears the chat.
+    help_line_4:  &c/chat mute &7» Mutes the chat.
+    help_line_5:  &c/chat unmute &7» Unmutes the chat.
+    help_line_6:  &c/broadcast <text> &7» Broadcasts a message to all players.
+    help_line_7:  &c/chat reload &7» Reloads the Skript.
+    help_line_8:  &c/staffchat <message> &7» Sends a message in the staffchat.
+    help_line_9: &a
 
 #                       Main Skript
 #           Only edit if you know what you're doing!
@@ -90,6 +90,7 @@ command /chat [<text>]:
             set {mutechat.on} to false
             broadcast "{@muteoffmsg}"
         if arg 1 is not set:
+            send " "
             send "{@help_line_1}"
             send "{@help_line_2}"
             send "{@help_line_3}"
@@ -99,7 +100,9 @@ command /chat [<text>]:
             send "{@help_line_7}"
             send "{@help_line_8}"
             send "{@help_line_9}"
+            send " "
         if arg 1 is "help":
+            send " "
             send "{@help_line_1}"
             send "{@help_line_2}"
             send "{@help_line_3}"
@@ -109,6 +112,7 @@ command /chat [<text>]:
             send "{@help_line_7}"
             send "{@help_line_8}"
             send "{@help_line_9}"
+            send " "
         if arg 1 is "reload":
             if player does not have permission "chatplus.admin":
                 cancel event
@@ -142,13 +146,6 @@ command /staffchat [<text>]:
                         send "{@scprefix} &c%player%&7: &e%arg-1%" to loop-player
             if arg-1 is not set:
                 send "{@scneedsargs}"
-
-on chat:
-    if {mutechat.on} is true:
-        if player has permission "chatplus.use":
-        else:
-            send "{@chatmuted}"
-            cancel event
             
 on join:
     set join message to "{@joinmsg}"
