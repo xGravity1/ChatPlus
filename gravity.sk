@@ -149,23 +149,15 @@ command /staffchat [<text>]:
                         send "{@scprefix} &3%player%&7: &e%arg-1%" to loop-player
             if arg-1 is not set:
                 send "{@scneedsargs}"
-
 on chat:
     if {mutechat.on} is true:
-        if player has permission "gravity.use":
+        if player has permission "gravity.bypass":
+            broadcast "&b%player%&f: &r%message"
         else:
             send "{@chatmuted}"
             cancel event
-on chat: 
-    cancel event
-    if {mutechat.on} is true:
-        if player has permission "gravity.use":
-             broadcast "&b%player%&f: &r%message%"    
-        else:
-            send {@chatmuted}
-            cancel event
-    else:    
-        broadcast "&b%player%&f: &r%message%"
+
+
 on join:
     set join message to "{@joinmsg}"
     
