@@ -157,7 +157,6 @@ on chat:
     if {mutechat.on} is true:
         if player has permission "gravity.bypass":
             broadcast "&b%player%&f: &r%message"
-            cancel event
         else:
             send "{@chatmuted}"
             cancel event
