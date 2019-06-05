@@ -45,7 +45,7 @@ options:
     scneedsargs: &3Please provide a message. Example: &a/sc Hello everyone!
 
     # Reload complete message
-    reload: &aChatPlus has been reloaded!
+    reload: &3Reloaded!
     
     # Staffchat format
     scprefix: &3&lStaff &7»
@@ -80,7 +80,14 @@ options:
 options:
     
     # Chat Format
-    format: &b%player%&f: %message%
+    format: &b%player%&f:%{gravity.%player%}% %message%
+
+    # Chat Color
+
+        #Specify a Color
+
+    specifycolor: &3Specify a color: &cRed&3, &bAqua&3, &eYellow &3or &dPink&3.
+    colorset: %{gravity.%player%}%The Chat Color has been set.      
 
 
 #                       Main Skript
@@ -124,12 +131,10 @@ command /gravity [<text>]:
             send "{@help_line_9}"
         if arg 1 is "reload":
             if player does not have permission "gravity.admin":
-                cancel event
-                    send "{@noperms}"
+                send "{@noperms}"
             else:
-                make console execute command "/sk reload Gravity"
+                make console execute command "/sk reload gravity"
                 send "{@prefix}{@reload}"
-    permission message {@noperms}
 command /broadcast [<text>]:
     permission: gravity.broadcast
     permission message: {@noperms}
@@ -142,7 +147,26 @@ command /broadcast [<text>]:
             broadcast "{@bcmsg} &3%player%"
             broadcast "&3%arg-1%"
             broadcast " "
-            
+
+command /chatcolor [<text>]:
+    aliases: ccolor, ccolour
+    trigger:
+        if arg 1 is not set:
+            send "{@specifycolor}"
+        else:
+            if arg 1 is "red":
+                set {gravity.%player%} to "&c"
+                send "{@colorset}"
+            if arg 1 is "aqua":
+                set {gravity.%player%} to "&b"
+                send "{@colorset}"
+            if arg 1 is "yellow":
+                set {gravity.%player%} to "&e"
+                send "{@colorset}"
+            if arg 1 is "pink":
+                set {gravity.%player%} to "&d"
+                send "{@colorset}"
+
 command /staffchat [<text>]:
     permission: chatplus.staffchat
     permission message: {@noperms}
@@ -168,6 +192,7 @@ on chat:
         broadcast "{@format}"
         cancel event
 on join:
+    set {gravity.%player%} to "&r"
     set join message to "{@joinmsg}"
     
 on first join:
